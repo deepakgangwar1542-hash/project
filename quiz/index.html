@@ -30,7 +30,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Landing / Start Page -->
     <div id="start-screen" class="card quiz-card">
       <div class="card-body">
         <h3 class="card-title mb-3">Online MCQ Test</h3>
@@ -45,7 +44,7 @@
       </div>
     </div>
 
-    <!-- Quiz Page -->
+    
     <div id="quiz-screen" class="card quiz-card d-none">
       <div class="card-body">
         <div class="d-flex justify-content-between mb-2">
@@ -64,7 +63,7 @@
       </div>
     </div>
 
-    <!-- Result Page -->
+    
     <div id="result-screen" class="card quiz-card d-none">
       <div class="card-body">
         <h3 class="mb-3">Test Result</h3>
@@ -79,18 +78,15 @@
   </div>
 
   <script>
-    // ----------------- Data & State -----------------
-    let fullQuestionBank = [];           // all 50 questions from questions.json
-    let quesData = [];                   // 15 randomly selected questions
-    let currentIndex = 0;                // index of current question (0–14)
+    
+    let fullQuestionBank = [];         
+    let quesData = [];                
+    let currentIndex = 0;              
 
-    // userResponse array as described in the image
-    // { ques_no: <original id>, user_answer: <index>, is_correct: <bool> }
+   
     let userResponse = [];
 
-    // ----------------- Utility Functions -----------------
-
-    // Shuffle array (Fisher–Yates)
+   
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -99,14 +95,14 @@
       return array;
     }
 
-    // Pick 15 random questions from bank
+   
     function selectRandomQuestions() {
       const cloned = [...fullQuestionBank];
       shuffle(cloned);
       return cloned.slice(0, 15);
     }
 
-    // Initialize userResponse with empty entries
+    
     function initUserResponse() {
       userResponse = quesData.map((q) => ({
         ques_no: q.id,
@@ -115,7 +111,7 @@
       }));
     }
 
-    // ----------------- UI Rendering -----------------
+    
 
     function renderQuestion() {
       const total = quesData.length;
@@ -157,7 +153,7 @@
         optionsContainer.appendChild(optionItem);
       });
 
-      // Navigation buttons state
+      
       document.getElementById("prev-btn").disabled = currentIndex === 0;
       document.getElementById("next-btn").disabled =
         currentIndex === total - 1;
@@ -171,8 +167,7 @@
       userResponse[currentIndex].is_correct = isCorrect;
     }
 
-    // ----------------- Result & Review -----------------
-
+   
     function calculateScore() {
       let correct = 0;
       let attempted = 0;
@@ -240,7 +235,7 @@
       });
     }
 
-    // ----------------- Screen Switching -----------------
+    
 
     function showScreen(screenId) {
       document
@@ -256,7 +251,7 @@
       document.getElementById(screenId).classList.remove("d-none");
     }
 
-    // ----------------- Event Handlers -----------------
+    
 
     document.getElementById("start-btn").addEventListener("click", () => {
       showScreen("quiz-screen");
@@ -289,7 +284,7 @@
     });
 
     document.getElementById("retake-btn").addEventListener("click", () => {
-      // Re-select new random 15 questions and restart
+      
       quesData = selectRandomQuestions();
       initUserResponse();
       currentIndex = 0;
@@ -297,7 +292,7 @@
       renderQuestion();
     });
 
-    // ----------------- Load questions.json on page load -----------------
+    
 
     async function loadQuestions() {
       try {
@@ -315,3 +310,4 @@
   </script>
 </body>
 </html>
+
